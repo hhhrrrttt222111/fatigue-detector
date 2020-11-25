@@ -6,10 +6,137 @@ body {
 nav {
     margin-bottom: 2rem;
 }
+.navbar-toggler, .navbar-toggler:focus, .navbar-toggler:active {
+    outline: none;
+    border: none;
+}
+
+.landing {
+    display: flex;
+}
+
+.landing_left {
+    flex: 0.7;
+}
+.landing_right {
+    padding-top: 3rem;
+    flex: 0.3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .main_button {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+.app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.base-timer {
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+  
+  /* scaleX(1) = CLOCKWISE, scaleX(-1) = ANTI-CLOCKWISE */
+  .base-timer__svg {
+    transform: scaleX(1);
+  }
+  
+  .base-timer__circle {
+    fill: none;
+    stroke: none;
+  }
+  
+  .base-timer__path-elapsed {
+    stroke-width: 7px;
+    stroke: grey;
+  }
+  
+  .base-timer__path-remaining {
+    stroke-width: 7px;
+    stroke-linecap: round;
+    transform: rotate(90deg);
+    transform-origin: center;
+    transition: 1s linear all;
+    fill-rule: nonzero;
+    stroke: currentColor;  
+}
+  
+  .base-timer__path-remaining.arc {
+    color: rgba(179, 48, 102, 0.973)
+  }
+  
+  .base-timer__label {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+  }
+  
+  .buttons {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .buttons button {
+    margin: 1rem;
+    border: none;
+    background-color: beige;
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    padding: .3rem;
+    font-size: 1.1rem;
+  }
+  
+  .buttons button:hover {
+    background-color: rgba(179, 48, 102, 0.973);
+    color: white;
+  }
+  
+  .buttons button:disabled {
+    cursor: not-allowed;
+  }
+  .buttons button:disabled:hover{
+    background-color:beige;
+  }
+
+
+
+@media screen and (max-width: 992px) {
+    .landing {
+        display: flex;
+        flex-direction: column;
+    }
+}
+  
+@media screen and (max-width: 600px) {
+    .landing {
+        display: flex;
+        flex-direction: column;
+    }
 }
