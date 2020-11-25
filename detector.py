@@ -3,7 +3,7 @@ from imutils.video import VideoStream
 from imutils import face_utils
 from threading import Thread
 import numpy as np
-from flask import Response, Flask, render_template
+from flask import Response, Flask, render_template, url_for
 import threading
 import pyglet
 import imutils
@@ -22,7 +22,14 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+
+@app.route('/about')
+def about():
+    return render_template('about.html', title='About')
  
+ 
+ 
+
 def sound_alarm():
     playsound.playsound('./fatigue/sounds/alarm2.mp3')
 
@@ -134,9 +141,12 @@ def generate():
     #     yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
         
 
+
+
 @app.route('/video_feed')
 def video_feed():
     return Response(generate(), mimetype = "multipart/x-mixed-replace; boundary=frame")
+
 
 
 if __name__ == '__main__':
