@@ -1,0 +1,15 @@
+body {
+    background: #fafafa;
+    color: black;
+}
+
+nav {
+    margin-bottom: 2rem;
+}
+
+.main_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
