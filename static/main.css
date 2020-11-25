@@ -80,7 +80,7 @@ nav {
 }
   
   .base-timer__path-remaining.arc {
-    color: rgba(179, 48, 102, 0.973)
+    color: red;
   }
   
   .base-timer__label {
@@ -105,16 +105,17 @@ nav {
   .buttons button {
     margin: 1rem;
     border: none;
+    outline: none;
     background-color: beige;
-    width: 100px;
+    width: 80px;
     height: 50px;
-    border-radius: 5px;
+    border-radius: 50px;
     padding: .3rem;
     font-size: 1.1rem;
   }
   
   .buttons button:hover {
-    background-color: rgba(179, 48, 102, 0.973);
+    background-color: red;
     color: white;
   }
   

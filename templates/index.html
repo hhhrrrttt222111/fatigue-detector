@@ -5,11 +5,13 @@
 <div class="landing">
     <div class="landing_left">
       <div class="main_button">
-        <button class='btn btn-outline btn-info'>
-          <a href='/video_feed' >Click </a>
+        <button class='btn btn-outline btn-info' onclick="playVid()" type="button">
+            <a href='/video_feed' >Click </a>
         </button>
       </div>
     </div>
+
+
     <div class="landing_right">
       <h1>Time <h1>
       <div id="app" class="app">
@@ -43,10 +45,6 @@
       </div>
     </div>
 </div>
-
-
-
-
 
 
   {% endblock content %}
