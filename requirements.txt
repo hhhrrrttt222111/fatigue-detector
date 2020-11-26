@@ -2,6 +2,7 @@ click==7.1.2
 cmake==3.18.4.post1
 dlib==19.21.0
 Flask==1.1.2
+gunicorn==20.0.4
 imutils==0.5.3
 itsdangerous==1.1.0
 Jinja2==2.11.2
