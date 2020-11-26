@@ -113,3 +113,5 @@ function setCircleDasharray() {
   console.log("setCircleDashArray: ", circleDasharray);
   timer.setAttribute("stroke-dasharray", circleDasharray);
 }
+
+

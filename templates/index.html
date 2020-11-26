@@ -5,15 +5,17 @@
 <div class="landing">
     <div class="landing_left">
       <div class="main_button">
-        <button class='btn btn-outline btn-info' onclick="playVid()" type="button">
-            <a href='/video_feed' >Click </a>
-        </button>
+        <a href='/video_feed' >
+          <button class='btn btn-outline btn-info' onclick="playVid()" type="button">
+              Keep Me Awake
+          </button>
+        </a>
       </div>
     </div>
 
 
     <div class="landing_right">
-      <h1>Time <h1>
+      <h3>Time since last drank water<h3>
       <div id="app" class="app">
         <div class="base-timer">
           <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -45,6 +47,27 @@
       </div>
     </div>
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tip of the day</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>{{quote_h}}</h3>
+        {{quote_b}}
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
   {% endblock content %}

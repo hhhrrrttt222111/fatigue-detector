@@ -11,7 +11,7 @@ import dlib
 import cv2
 
 def sound_alarm():
-    playsound.playsound('alarm2.mp3')
+    playsound.playsound('./sounds/alarm2.mp3')
 
 def eye_aspect_ratio(eye):
 	A = dist.euclidean(eye[1], eye[5])
@@ -23,7 +23,7 @@ def eye_aspect_ratio(eye):
  
 
 EYE_AR_THRESH = 0.3
-EYE_AR_CONSEC_FRAMES = 48
+EYE_AR_CONSEC_FRAMES = 30
 
 COUNTER = 0
 ALARM_ON = False
@@ -63,8 +63,8 @@ while True:
 
 		leftEyeHull = cv2.convexHull(leftEye)
 		rightEyeHull = cv2.convexHull(rightEye)
-		cv2.drawContours(frame, [leftEyeHull], -1, (0, 255, 0), 1)
-		cv2.drawContours(frame, [rightEyeHull], -1, (0, 255, 0), 1)
+		cv2.drawContours(frame, [leftEyeHull], -1, (0, 230, 0), 1)
+		cv2.drawContours(frame, [rightEyeHull], -1, (0, 230, 0), 1)
 
 
 		if ear < EYE_AR_THRESH:
@@ -75,13 +75,12 @@ while True:
 				if not ALARM_ON:
 					ALARM_ON = True
 
-					if args["alarm"] != "":
-						t = Thread(target=sound_alarm)
-						t.deamon = True
-						t.start()
+					t = Thread(target=sound_alarm)
+					t.deamon = True
+					t.start()
 
 				cv2.putText(frame, "DROWSINESS ALERT!", (10, 30),
-					cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+					cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 230), 2)
 
 		else:
 			COUNTER = 0

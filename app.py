@@ -1,16 +1,19 @@
+from flask import Response, Flask, render_template, url_for
 from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
 from threading import Thread
 import numpy as np
-from flask import Response, Flask, render_template, url_for
 import threading
 import pyglet
 import imutils
+import random
 import playsound
 import time
 import dlib
 import cv2
+
+from utils.quotes import quotes
 
 
 
@@ -19,9 +22,11 @@ app = Flask(__name__)
 outputFrame = None
 lock = threading.Lock()
 
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    quote = random.choice(quotes)
+    return render_template('index.html', quote_h=quote[0], quote_b=quote[1])
 
 
 @app.route('/about')
@@ -59,7 +64,7 @@ def generate():
     time.sleep(2.0)
 
     EYE_AR_THRESH = 0.3
-    EYE_AR_CONSEC_FRAMES = 48
+    EYE_AR_CONSEC_FRAMES = 30
 
     COUNTER = 0
     ALARM_ON = False
@@ -84,8 +89,8 @@ def generate():
 
             leftEyeHull = cv2.convexHull(leftEye)
             rightEyeHull = cv2.convexHull(rightEye)
-            cv2.drawContours(frame, [leftEyeHull], -1, (0, 255, 0), 1)
-            cv2.drawContours(frame, [rightEyeHull], -1, (0, 255, 0), 1)
+            cv2.drawContours(frame, [leftEyeHull], -1, (0, 230, 0), 1)
+            cv2.drawContours(frame, [rightEyeHull], -1, (0, 230, 0), 1)
 
 
             if ear < EYE_AR_THRESH:
@@ -101,7 +106,7 @@ def generate():
                         t.start()
 
                     cv2.putText(frame, "WAKE UP!!!", (10, 30),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 230), 2)
 
             else:
                 COUNTER = 0
