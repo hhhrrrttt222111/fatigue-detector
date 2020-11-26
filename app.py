@@ -13,10 +13,10 @@ import dlib
 import cv2
 
 
+app = Flask(__name__)
+
 outputFrame = None
 lock = threading.Lock()
-
-app = Flask(__name__)
 
 @app.route('/')
 def index():
