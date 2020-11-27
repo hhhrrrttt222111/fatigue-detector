@@ -15,36 +15,52 @@
 
 
     <div class="landing_right">
-      <h3>Time since last drank water<h3>
-      <div id="app" class="app">
-        <div class="base-timer">
-          <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <g class="base-timer__circle">
-              <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
-              <path id="base-timer-path-remaining" stroke-dasharray="283" class="base-timer__path-remaining arc"
-                    d="
-                      M 50, 50
-                      m -45, 0
-                      a 45,45 0 1,0 90,0
-                      a 45,45 0 1,0 -90,0
-                      "></path>
-            </g>
-          </svg>
-          <span id="base-timer-label" class="base-timer__label"></span>
-        </div>
-      </div>
+      <div>
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+        <use xlink:href="#gentle-wave" x="100" y="0" fill="rgba(0, 183, 255,0.7)" />
+        <use xlink:href="#gentle-wave" x="100" y="3" fill="rgba(0, 183, 255,0.5)" />
+        <use xlink:href="#gentle-wave" x="100" y="5" fill="rgba(0, 183, 255,0.3)" />
+        <use xlink:href="#gentle-wave" x="100" y="7" fill="#00b7ff" />
+        </g>
+        </svg>
+       </div>
+      <div class="content flex">
+         <h3>Last cup of water was in</h3>
+          <div id="app" class="app">
+            <div class="base-timer">
+              <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g class="base-timer__circle">
+                  <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+                  <path id="base-timer-path-remaining" stroke-dasharray="283" class="base-timer__path-remaining arc"
+                        d="
+                          M 50, 50
+                          m -45, 0
+                          a 45,45 0 1,0 90,0
+                          a 45,45 0 1,0 -90,0
+                          "></path>
+                </g>
+              </svg>
+              <span id="base-timer-label" class="base-timer__label"></span>
+            </div>
+          </div>
 
-      <div class="buttons">
-        <button onclick="start()" class="start">
-          Start
-        </button>
-        <button onclick="stop()" class="stop">
-          Stop
-        </button>
-        <button onclick="reset()" class="reset">
-          Reset
-        </button>
-      </div>
+          <div class="buttons">
+            <button onclick="start()" class="start">
+              Start
+            </button>
+            <button onclick="stop()" class="stop">
+              Stop
+            </button>
+            <button onclick="reset()" class="reset">
+              Reset
+            </button>
+          </div>
+        </div>
     </div>
 </div>
 
