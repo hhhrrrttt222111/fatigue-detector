@@ -146,8 +146,8 @@ def video_feed():
     return Response(generate(), mimetype = "multipart/x-mixed-replace; boundary=frame")
      
 
-@app.route('/results')
-def results():
+@app.route('/report')
+def report():
     arr = []
     with open("./files/output.txt", "r") as f:
         name = [line.strip() for line in f if line.strip()]  
@@ -157,7 +157,7 @@ def results():
     avg = np.mean(arr)
     avg = round(avg, 2)
             
-    return render_template('results.html', title='Results', avg=avg)
+    return render_template('report.html', title='Results', avg=avg)
 
 
 if __name__ == '__main__':
