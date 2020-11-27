@@ -127,6 +127,20 @@ nav {
   }
 
 
+.result {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-img-top {
+  width: 320px;
+  height: 280px;
+}
+
+
 
 
 @media screen and (max-width: 992px) {
