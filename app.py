@@ -34,7 +34,6 @@ def about():
  
  
 
-
  
 
 def sound_alarm():
@@ -69,6 +68,9 @@ def generate():
     
     COUNTER = 0
     ALARM_ON = False
+    
+    with open("./files/output.txt", "w") as file:
+        file.write('\n')
 
     while True:
         frame = vs.read()
@@ -115,6 +117,11 @@ def generate():
 
             cv2.putText(frame, "EAR: {:.4f}".format(ear), (300, 30),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+            
+            # print(ear)
+            with open("./files/output.txt", "a") as file:
+                file.write(str(round(ear, 3)*1000))
+                file.write('\n')
     
         # cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
@@ -137,11 +144,20 @@ def generate():
 @app.route('/video_feed')
 def video_feed():
     return Response(generate(), mimetype = "multipart/x-mixed-replace; boundary=frame")
+     
 
-
-@app.route('/results')
-def results():
-    return render_template('results.html', title='Results')
+@app.route('/report')
+def report():
+    arr = []
+    with open("./files/output.txt", "r") as f:
+        name = [line.strip() for line in f if line.strip()]  
+    for num in name:
+        arr.append(int(float(num)))
+        
+    avg = np.mean(arr)
+    avg = round(avg, 2)
+            
+    return render_template('report.html', title='Results', avg=avg)
 
 
 if __name__ == '__main__':

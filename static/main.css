@@ -164,6 +164,20 @@ nav {
     animation-delay: -5s;
     animation-duration: 20s;
   }
+.result {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-img-top {
+  width: 320px;
+  height: 280px;
+}
+
+
 
   @keyframes move-forever {
     0% {
