@@ -5,7 +5,6 @@ from imutils import face_utils
 from threading import Thread
 import numpy as np
 import threading
-import pyglet
 import imutils
 import random
 import playsound
@@ -22,9 +21,9 @@ app = Flask(__name__)
 outputFrame = None
 lock = threading.Lock()
 
-
 @app.route('/')
 def index():
+    
     quote = random.choice(quotes)
     return render_template('index.html', quote_h=quote[0], quote_b=quote[1])
 
@@ -34,6 +33,8 @@ def about():
     return render_template('about.html', title='About')
  
  
+
+
  
 
 def sound_alarm():
@@ -50,7 +51,7 @@ def eye_aspect_ratio(eye):
 
 def generate():
 
-    print("[INFO] loading facial landmark predictor...")
+    print("Loading facial landmark predictor...")
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor("./fatigue/shape_predictor_68_face_landmarks.dat")
 
@@ -59,13 +60,13 @@ def generate():
     (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
 
-    print("[INFO] starting video stream thread...")
+    print("Starting video stream thread...")
     vs = VideoStream(src=0).start()
     time.sleep(2.0)
 
     EYE_AR_THRESH = 0.3
     EYE_AR_CONSEC_FRAMES = 30
-
+    
     COUNTER = 0
     ALARM_ON = False
 
@@ -154,10 +155,11 @@ def video_feed():
     return Response(generate(), mimetype = "multipart/x-mixed-replace; boundary=frame")
 
 
+@app.route('/results')
+def results():
+    return render_template('results.html', title='Results')
+
 
 if __name__ == '__main__':
-    # t = threading.Thread(target=detect_motion, args=(32,))
-    # t.daemon = True
-    # t.start()
 
     app.run(host='127.0.0.1', port=5000, debug=True, threaded=True, use_reloader=False)

@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
 
-
     {% if title %}
         <title>Fatigue Detector - {{ title }}</title>
     {% else %}
@@ -19,7 +18,7 @@
 
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ url_for('index') }}">FD</a>
+        <a class="navbar-brand" href="{{ url_for('index') }}">Fatigue Detector</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,5 +56,6 @@
           $('#exampleModal').modal('show');
       })
     </script>
+
   </body>
 </html>

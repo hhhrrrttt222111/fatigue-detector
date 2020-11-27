@@ -12,7 +12,7 @@ let timeLabel = document.getElementById("base-timer-label");
 
 //Time related vars
 const TIME_LIMIT = 0; //in seconds
-let timePassed = 1;
+let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 
@@ -115,3 +115,11 @@ function setCircleDasharray() {
 }
 
 
+function playVid() {
+  var x = document.getElementBId('image_stream');
+  if (x.style.display == "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none"
+  }
+}

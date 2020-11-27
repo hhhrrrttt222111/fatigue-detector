@@ -24,8 +24,10 @@ def eye_aspect_ratio(eye):
 
 EYE_AR_THRESH = 0.3
 EYE_AR_CONSEC_FRAMES = 30
+EYE_BLINK_FRAMES = 3
 
 COUNTER = 0
+TOTAL = 0
 ALARM_ON = False
 
 
@@ -69,6 +71,7 @@ while True:
 
 		if ear < EYE_AR_THRESH:
 			COUNTER += 1
+
 
 			if COUNTER >= EYE_AR_CONSEC_FRAMES:
 
