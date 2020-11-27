@@ -130,23 +130,7 @@ def generate():
         (flag, encodedImage) = cv2.imencode(".jpg", outputFrame)
 
         yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
-
-
-# def generate():
-    
-    # global outputFrame, lock
-    # while True:
-    #     with lock:
-    #         if outputFrame is None:
-    #             continue
-
-    #         (flag, encodedImage) = cv2.imencode(".jpg", outputFrame)
-
-    #         if not flag:
-    #             continue
-
-    #     yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
-        
+       
 
 
 
