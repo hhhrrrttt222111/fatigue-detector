@@ -140,7 +140,15 @@ nav {
   height: 280px;
 }
 
-
+.report-button {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.report-button > a, .report-button > button {
+  margin: 1rem;
+}
 
 
 @media screen and (max-width: 992px) {

@@ -5,7 +5,7 @@
 {% block content %}
 
     <div class="result">
-        <div class="card">
+        <div class="card" id="card">
         {% if avg <= 250 %}
             <img class="card-img-top" src="{{ url_for('static', filename='media/sleep.svg') }}" alt="Card image cap">
         {% elif avg > 250 and avg < 300 %}
@@ -13,21 +13,22 @@
         {% else %}
             <img class="card-img-top" src="{{ url_for('static', filename='media/refresh.svg') }}" alt="Card image cap">
         {% endif %}
-        <div class="card-body">
-            {% if avg < 250 %}
-                <h2 class="card-title">You need to sleep </h2>
-            {% elif avg < 270 %}
-                <h2 class="card-title">You are a little tired </h2>
-            {% else %}
-                <h2 class="card-title">You are refreshed </h2>
-            {% endif %}
-            <h6 class="card-text">Your average Eye Aspect Ratio is {{avg}}</h6>
-            <br>
-            <a href="{{ url_for('index') }}" class="btn btn-primary">Back To Home</a>
+            <div class="card-body">
+                {% if avg < 250 %}
+                    <h2 class="card-title">You need to sleep </h2>
+                {% elif avg < 270 %}
+                    <h2 class="card-title">You are a little tired </h2>
+                {% else %}
+                    <h2 class="card-title">You are refreshed </h2>
+                {% endif %}
+                <h6 class="card-text">Your average Eye Aspect Ratio is {{avg}}</h6>
+                <br>
+            </div>
         </div>
+            <div class="report-button">
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Back To Home</a>
+                <button class="btn btn-primary" id="download">Save Report</button>
+            </div>
     </div>
-
-
-</div>
 
 {% endblock content %}
