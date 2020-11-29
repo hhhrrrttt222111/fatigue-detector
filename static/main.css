@@ -1,18 +1,64 @@
 body {
     background: #fafafa;
     color: black;
+    background-image: url('./media/home.jpg') ;
+    background-repeat: no-repeat;
 }
 
-nav {
-    margin-bottom: 2rem;
+.navbar {
+  transition: all 0.7s;
+  
 }
-.navbar-toggler, .navbar-toggler:focus, .navbar-toggler:active {
-    outline: none;
-    border: none;
+
+.navbar .nav-link {
+  color: #fff;
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: orange;
+  text-decoration: none;
+}
+
+.navbar .navbar-brand {
+  color: #fff;
+}
+
+.navbar-toggler:focus{
+outline: none;
+box-shadow: none;
+}
+
+/* Change navbar styling on scroll */
+.navbar.active {
+  background:white;
+ box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.active .nav-link {
+  color:black;
+  opacity:100% !important;
+  outline: none;
+  box-shadow: none;
+
+}
+
+.navbar.active .nav-link:hover,
+.navbar.active .nav-link:focus {
+  color:darkorange;
+  text-decoration: none;
+}
+
+.navbar.active .navbar-brand {
+  color:black;
 }
 
 .landing {
+  padding-top: 5rem;
     display: flex;
+  
 }
 
 .landing_left {
@@ -80,7 +126,7 @@ nav {
 }
   
   .base-timer__path-remaining.arc {
-    color: red;
+    color: black;
   }
   
   .base-timer__label {
@@ -115,8 +161,8 @@ nav {
   }
   
   .buttons button:hover {
-    background-color: red;
-    color: white;
+    background-color: black;
+    color: #00b7ff;
   }
   
   .buttons button:disabled {
@@ -127,6 +173,43 @@ nav {
   }
 
 
+  .waves {
+    position:relative;
+    width: 336px;
+    height:100%;
+    margin-bottom:-7px; /*Fix for safari gap*/
+    min-height:100px;
+    max-height:150px;
+  }
+  
+  .content {
+    position:relative;
+    height:100%;
+    text-align:center;
+    background-color: rgb(0, 183, 255);
+  }
+  
+  /* Animation */
+  
+  .parallax > use {
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
+  }
+  .parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+  }
+  .parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+  }
+  .parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+  }
+  .parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+  }
 .result {
   margin-top: 4rem;
   display: flex;
@@ -150,12 +233,25 @@ nav {
   margin: 1rem;
 }
 
+  @keyframes move-forever {
+    0% {
+     transform: translate3d(-90px,0,0);
+    }
+    100% { 
+      transform: translate3d(85px,0,0);
+    }
+  }
 
 @media screen and (max-width: 992px) {
     .landing {
         display: flex;
         flex-direction: column;
     }
+    .waves {
+      height:40px;
+      min-height:40px;
+    }
+   
 }
   
 @media screen and (max-width: 600px) {
@@ -163,4 +259,83 @@ nav {
         display: flex;
         flex-direction: column;
     }
+    .waves {
+      height:40px;
+      min-height:40px;
+    }
+    
+}
+
+
+.homebtn {
+  background-color: #00b7ff;
+  --y: -25;
+  --x: 0;
+  --rotation: 0;
+  --speed: 2;
+  --txt: "Keep Me Awake";
+  --padding: 1rem 1.25rem;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: var(--padding);
+  color: transparent;
+  font-weight: bold;
+  font-size: 1rem;
+  -webkit-transition: background 0.1s ease;
+  transition: background 0.1s ease;
+  background: #00b7ff;
+  outline-color: #00b7ff;
+  -webkit-animation-name: flow-and-shake;
+          animation-name: flow-and-shake;
+  -webkit-animation-duration: calc(var(--speed) * 1s);
+          animation-duration: calc(var(--speed) * 1s);
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+.homebtn:after {
+  content: var(--txt);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: var(--padding);
+  color: #fff;
+}
+.homebtn:hover {
+  background: #00b7ff;
+  --speed: 0.1;
+  --rotation: -1;
+  --y: -1;
+  --x: 1;
+  
+}
+.homebtn:active {
+  --speed: 4;
+  --x: 0;
+  --y: 5;
+  --rotation: 0;
+  background: #00b7ff;
+}
+@-webkit-keyframes flow-and-shake {
+  0%, 100% {
+    -webkit-transform: translate(calc(var(--x) * -1%), 0) rotate(calc(var(--rotation) * -1deg));
+            transform: translate(calc(var(--x) * -1%), 0) rotate(calc(var(--rotation) * -1deg));
+  }
+  50% {
+    -webkit-transform: translate(calc(var(--x) * 1%), calc(var(--y) * 1%)) rotate(calc(var(--rotation) * 1deg));
+            transform: translate(calc(var(--x) * 1%), calc(var(--y) * 1%)) rotate(calc(var(--rotation) * 1deg));
+  }
+}
+@keyframes flow-and-shake {
+  0%, 100% {
+    -webkit-transform: translate(calc(var(--x) * -1%), 0) rotate(calc(var(--rotation) * -1deg));
+            transform: translate(calc(var(--x) * -1%), 0) rotate(calc(var(--rotation) * -1deg));
+  }
+  50% {
+    -webkit-transform: translate(calc(var(--x) * 1%), calc(var(--y) * 1%)) rotate(calc(var(--rotation) * 1deg));
+            transform: translate(calc(var(--x) * 1%), calc(var(--y) * 1%)) rotate(calc(var(--rotation) * 1deg));
+  }
 }
