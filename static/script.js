@@ -123,3 +123,14 @@ function playVid() {
     x.style.display = "none"
   }
 }
+
+
+var node = document.getElementById('card');
+var btn = document.getElementById('download');
+
+btn.onclick = function() {
+    domtoimage.toBlob(document.getElementById('card'))
+      .then(function(blob) {
+        window.saveAs(blob, 'report.png');
+      });
+  }
