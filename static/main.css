@@ -1,8 +1,9 @@
 body {
     background: #fafafa;
     color: black;
-    background-image: url('./media/home.jpg') ;
-    background-repeat: no-repeat;
+    background: linear-gradient(rgba(255, 255, 255, .15), rgba(255, 255, 255, .15)), url('./media/home.jpg');
+    background-size: cover;
+    z-index: 1;
 }
 
 .navbar {
@@ -187,6 +188,8 @@ box-shadow: none;
     height:100%;
     text-align:center;
     background-color: rgb(0, 183, 255);
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
   }
   
   /* Animation */
@@ -313,6 +316,8 @@ box-shadow: none;
   
 }
 .homebtn:active {
+  outline: none;
+  border:none;
   --speed: 4;
   --x: 0;
   --y: 5;
@@ -338,4 +343,28 @@ box-shadow: none;
     -webkit-transform: translate(calc(var(--x) * 1%), calc(var(--y) * 1%)) rotate(calc(var(--rotation) * 1deg));
             transform: translate(calc(var(--x) * 1%), calc(var(--y) * 1%)) rotate(calc(var(--rotation) * 1deg));
   }
+}
+
+
+
+.video {
+  margin-top: 7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.video > img {
+  background-color: #00b7ff;
+  border-radius: 30px;
+  width: 600px;
+  height: 400px;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
