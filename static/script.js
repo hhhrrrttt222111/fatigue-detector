@@ -115,15 +115,6 @@ function setCircleDasharray() {
 }
 
 
-function playVid() {
-  var x = document.getElementBId('image_stream');
-  if (x.style.display == "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none"
-  }
-}
-
 
 var node = document.getElementById('card');
 var btn = document.getElementById('download');
@@ -134,3 +125,8 @@ btn.onclick = function() {
         window.saveAs(blob, 'report.png');
       });
   }
+
+
+function imageloaded() {
+  document.getElementById('feed').setAttribute('style', 'display: none');
+}
