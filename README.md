@@ -58,6 +58,9 @@ This project files requires **Python 3** and the following Python libraries inst
 ```
 python app.py
 ```  
+
+<br><br><br><br>
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
