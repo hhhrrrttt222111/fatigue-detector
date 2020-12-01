@@ -226,6 +226,11 @@ box-shadow: none;
   height: 280px;
 }
 
+.timestamp {
+  display: flex;
+  justify-content: space-around;
+}
+
 .report-button {
   margin-top: 2rem;
   display: flex;
@@ -235,6 +240,8 @@ box-shadow: none;
 .report-button > a, .report-button > button {
   margin: 1rem;
 }
+
+
 
   @keyframes move-forever {
     0% {

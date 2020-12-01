@@ -118,13 +118,25 @@ function setCircleDasharray() {
 
 var node = document.getElementById('card');
 var btn = document.getElementById('download');
+const scale = 750 / node.offsetWidth;
+
+let obj = {
+  height: node.offsetHeight * scale,
+  width: node.offsetWidth * scale,
+  style: {
+  transform: "scale(" + scale + ")",
+  transformOrigin: "top left",
+  width: node.offsetWidth + "px",
+  height: node.offsetHeight + "px"
+  }
+}
 
 btn.onclick = function() {
-    domtoimage.toBlob(document.getElementById('card'))
-      .then(function(blob) {
-        window.saveAs(blob, 'report.png');
-      });
-  }
+  domtoimage.toBlob(node, obj)
+    .then(function(blob) {
+      window.saveAs(blob, 'report.png');
+    });
+}
 
 
 function imageloaded() {
