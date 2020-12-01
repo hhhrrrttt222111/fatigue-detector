@@ -3,11 +3,13 @@ from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
 from threading import Thread
+from datetime import date, datetime
 import numpy as np
 import threading
 import imutils
 import random
 import playsound
+import math
 import time
 import dlib
 import cv2
@@ -158,8 +160,12 @@ def report():
         
     avg = np.mean(arr)
     avg = round(avg, 2)
-            
-    return render_template('report.html', title='Results', avg=avg)
+    
+    check = math.isnan(avg)
+    time = datetime.now().strftime("%I:%M %p")
+    current_date = date.today().strftime("%B %d, %Y")
+         
+    return render_template('report.html', title='Results', avg=avg, check=check, time=time, date=current_date)
 
 
 if __name__ == '__main__':

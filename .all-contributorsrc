@@ -1,0 +1,38 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "hhhrrrttt222111",
+      "name": "Hemanth R",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/43471295?v=4",
+      "profile": "http://hhhrrrttt222111.me/",
+      "contributions": [
+        "code",
+        "design",
+        "maintenance",
+        "mentoring"
+      ]
+    },
+    {
+      "login": "joeljosh",
+      "name": "Joel Joshua",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/57311955?v=4",
+      "profile": "https://joeljosh.github.io",
+      "contributions": [
+        "code",
+        "design",
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "fatigue-detector",
+  "projectOwner": "hhhrrrttt222111",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
