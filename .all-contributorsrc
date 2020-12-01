@@ -15,6 +15,17 @@
         "design",
         "maintenance"
       ]
+    },
+    {
+      "login": "joeljosh",
+      "name": "Joel Joshua",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/57311955?v=4",
+      "profile": "https://joeljosh.github.io",
+      "contributions": [
+        "code",
+        "design",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
