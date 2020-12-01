@@ -1,4 +1,7 @@
 # FATIGUE-DETECTOR
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 
 ## Clone the repo
@@ -55,3 +58,21 @@ This project files requires **Python 3** and the following Python libraries inst
 ```
 python app.py
 ```  
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://hhhrrrttt222111.me/"><img src="https://avatars2.githubusercontent.com/u/43471295?v=4" width="100px;" alt=""/><br /><sub><b>Hemanth R</b></sub></a><br /><a href="https://github.com/hhhrrrttt222111/fatigue-detector/commits?author=hhhrrrttt222111" title="Code">💻</a> <a href="#design-hhhrrrttt222111" title="Design">🎨</a> <a href="#maintenance-hhhrrrttt222111" title="Maintenance">🚧</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
