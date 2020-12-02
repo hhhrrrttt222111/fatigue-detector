@@ -1,3 +1,4 @@
+# imports
 from flask import Response, Flask, render_template, url_for
 from scipy.spatial import distance as dist
 from imutils.video import VideoStream
@@ -19,6 +20,7 @@ from utils.quotes import quotes
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'Mi6gttkkSJHof5-q8-HPBUyTsdRVVOLO'
 
 outputFrame = None
 lock = threading.Lock()
