@@ -4,7 +4,11 @@
 
     <div class="video">
         <img src={{url_for('video_feed')}} onload="imageloaded();"/>
-        <h1 id='feed' class="centered">Live Feed Loading</h1>
+        <div id="feed" class="centered">
+            <img src="{{ url_for('static', filename='media/loader.svg') }}" />
+            <h2>Loading Live Feed</h2>
+        </div>
+
     </div>
 
 
