@@ -156,6 +156,10 @@ def generate():
                 if COUNTER2  >= YAWN_CONSEC_FRAMES and not temp:
                     YAWN_COUNT += 1
                     temp = True
+                    #print(YAWN_COUNT)
+                    with open("./files/output2.txt", "a") as file:
+                        file.write(str(YAWN_COUNT))  
+                        file.write('\n')
                     #cv2.putText(frame, "Yawn Alert", (10, 30),
                     #            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
             
@@ -171,13 +175,7 @@ def generate():
                 file.write(str(round(ear, 3)*1000))
                 file.write('\n')
 
-            if prev != YAWN_COUNT:
-                print(YAWN_COUNT)
-                with open("./files/output2.txt", "a") as file:
-                    file.write(str(YAWN_COUNT))  
-                    file.write('\n')
-                    
-            prev = YAWN_COUNT
+            
         # cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
     
