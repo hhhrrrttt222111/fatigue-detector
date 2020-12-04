@@ -98,10 +98,30 @@ box-shadow: none;
     margin-top: 20px;
 }
 
+.modal-content {
+  outline: none;
+  border: none;
+}
 
+.modal-header, .modal-body {
+  outline: none;
+  border: none;
+  color: rgb(0, 183, 255);
+  background-color: black;
+}
+.modal-header {
+  color: #00b7ff;
+  border-bottom: 2px solid #00b7ff;
+}
+.modal-body > h3 {
+  color: #009999;
+}
 
-
-
+.close, .close:hover {
+  color: #009999;
+  outline: none;
+  border: none;
+}
 
 
 

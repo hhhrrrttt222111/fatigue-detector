@@ -277,6 +277,7 @@ def graph():
     x = range(len(arr))
     axis.set_xlabel('Session Duration', fontsize=13, labelpad=5)
     axis.set_ylabel('Eye Aspect Ratio', fontsize=13, labelpad=5)
+    axis.set_ylim([0.190, 0.350])
     axis.set_title('EAR Graph for the session', fontsize=18)
     axis.tick_params(axis='x', colors='#009999')
     axis.tick_params(axis='y', colors='#009999')
