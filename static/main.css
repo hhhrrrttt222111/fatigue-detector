@@ -7,12 +7,14 @@ body {
 }
 
 .navbar {
+  background-color: white;
   transition: all 0.7s;
-  
+  opacity: 0.9;
+  font-size: 1.2em !important;
 }
 
 .navbar .nav-link {
-  color: #fff;
+  color:black;
   outline: none;
   box-shadow: none;
 }
@@ -23,16 +25,24 @@ body {
   text-decoration: none;
 }
 
-.navbar .navbar-brand {
-  color: #fff;
-}
+
 
 .navbar-toggler:focus{
 outline: none;
 box-shadow: none;
 }
 
+.navbar .navbar-brand {
+  color:black;
+}
+
+@media (max-width: 575px) {
+  .navbar .nav-link{
+    text-align: center;
+  }
+}
 /* Change navbar styling on scroll */
+/*
 .navbar.active {
   background:white;
  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1);
@@ -55,6 +65,7 @@ box-shadow: none;
 .navbar.active .navbar-brand {
   color:black;
 }
+*/
 
 .landing {
   padding-top: 5rem;
