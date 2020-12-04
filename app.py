@@ -4,6 +4,9 @@ from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
 from threading import Thread
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+import matplotlib.pyplot as plt
 from datetime import date, datetime
 import numpy as np
 import threading
@@ -14,11 +17,7 @@ import math
 import time
 import dlib
 import cv2
-
 import io
-
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_agg import FigureCanvasAgg
 
 from utils.quotes import quotes
 
@@ -264,15 +263,27 @@ def video_feed():
 @app.route('/graph')
 def graph():
     arr = []
+    plt.style.use('dark_background')
     fig = Figure()
     axis = fig.add_subplot(1, 1, 1)
     with open("./files/output1.txt", "r") as f:
         name = [line.strip() for line in f if line.strip()] 
     for num in name:
         arr.append(int(float(num)))
-    x = arr
-    y = np.array(arr) + 5
-    axis.plot(x, y)
+        
+        
+    y = np.array(arr)
+    y = y/1000
+    x = range(len(arr))
+    axis.set_xlabel('Session Duration', fontsize=13, labelpad=5)
+    axis.set_ylabel('Eye Aspect Ratio', fontsize=13, labelpad=5)
+    axis.set_title('EAR Graph for the session', fontsize=18)
+    axis.tick_params(axis='x', colors='#009999')
+    axis.tick_params(axis='y', colors='#009999')
+    axis.yaxis.label.set_color('#00e6e6')
+    axis.xaxis.label.set_color('#00e6e6')
+    axis.title.set_color('#80ffff')
+    axis.plot(x, y, color='#00b7ff', linestyle='dashed', linewidth=1)
     
     output = io.BytesIO()
     FigureCanvasAgg(fig).print_png(output)

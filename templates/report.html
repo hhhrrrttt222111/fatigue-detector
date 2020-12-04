@@ -12,7 +12,12 @@
             </div>
         </div>
     {% else %}
-        <div class="card" id="card">
+        <div class="graph">
+            <img src="{{ url_for('graph') }}" />
+        </div>
+
+        <div class="report_container">
+            <div class="card" id="card">
             {% if avg <= 250 %}
                 <img class="card-img-top" src="{{ url_for('static', filename='media/sleep.svg') }}" alt="Card image cap">
             {% elif avg > 250 and avg < 300 %}
@@ -28,7 +33,7 @@
                 {% else %}
                     <h2 class="card-title">You are refreshed </h2>
                 {% endif %}
-                <h5 class="card-text">Your average Eye Aspect Ratio is {{avg}}</h5> <br>
+                <h5 class="card-text">Your average Eye Aspect Ratio is {{'%0.3f'|format((avg/1000)|float)}}</h5> <br>
                 <h5 class="card-text">Your total yawns in this session is {{count}}</h5> <br>
                 <div class="timestamp">
                     <h6>{{date}}</h6>
