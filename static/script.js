@@ -115,6 +115,13 @@ function setCircleDasharray() {
 }
 
 
+function imageloaded() {
+  document.getElementById('feed').setAttribute('style', 'display: none');
+  document.getElementById('fancy-spinner').setAttribute('style', 'display: none');
+  document.getElementById('ring').setAttribute('style', 'display: none');
+  document.getElementById('dot').setAttribute('style', 'display: none');
+}
+
 
 var node = document.getElementById('card');
 var btn = document.getElementById('download');
@@ -136,12 +143,4 @@ btn.onclick = function() {
     .then(function(blob) {
       window.saveAs(blob, 'report.png');
     });
-}
-
-
-function imageloaded() {
-  document.getElementById('feed').setAttribute('style', 'display: none');
-  document.getElementById('fancy-spinner').setAttribute('style', 'display: none');
-  document.getElementById('ring').setAttribute('style', 'display: none');
-  document.getElementById('dot').setAttribute('style', 'display: none');
 }

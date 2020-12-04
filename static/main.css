@@ -14,6 +14,11 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   font-size: 1.2em !important;
 }
 
+.nav-item {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .navbar .nav-link {
   color:black;
   outline: none;
@@ -288,6 +293,11 @@ box-shadow: none;
 
 .result > .graph > img {
   width: 600px;
+  border-radius: 10px;
+  box-shadow: 2px 5px 24px -3px rgba(31,221,205,0.47);
+  -webkit-box-shadow: 2px 5px 24px -3px rgba(31,221,205,0.47);
+  -moz-box-shadow: 2px 5px 24px -3px rgba(31,221,205,0.47);
+
 }
 
 .graph {
@@ -301,9 +311,20 @@ box-shadow: none;
   justify-content: center;
 }
 
+.card {
+  background-color: black;
+  color: #00e6e6;
+}
+
 .card-img-top {
   width: 320px;
   height: 280px;
+}
+.card-title {
+  color: #00b7ff;
+}
+.card-text {
+  color: #009999;
 }
 
 .timestamp {
