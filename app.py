@@ -53,6 +53,19 @@ def eye_aspect_ratio(eye):
     ear = (A + B) / (2.0 * C)
     return ear
 
+def lip_distance(shape):
+    top_lip = shape[50:53]
+    top_lip = np.concatenate((top_lip, shape[61:64]))
+
+    low_lip = shape[56:59]
+    low_lip = np.concatenate((low_lip, shape[65:68]))
+
+    top_mean = np.mean(top_lip, axis=0)
+    low_mean = np.mean(low_lip, axis=0)
+
+    distance = abs(top_mean[1] - low_mean[1])
+    return distance
+
 
 def generate():
 
@@ -71,12 +84,21 @@ def generate():
 
     EYE_AR_THRESH = 0.3
     EYE_AR_CONSEC_FRAMES = 30
+    YAWN_THRESH = 20
     
     COUNTER = 0
+    YAWN_COUNT = 0
     ALARM_ON = False
+    Y_COUNTER = 0
+    YAWN_CONSEC_FRAMES = 20
+    COUNTER2 = 0
+    temp = False
+    prev = 0
     
-    with open("./files/output.txt", "w") as file:
+    with open("./files/output1.txt", "w") as file:
         file.write('\n')
+    with open("./files/output2.txt", "w") as file:
+        file.write('0\n')    
 
     while True:
         frame = vs.read()
@@ -89,6 +111,7 @@ def generate():
             shape = predictor(gray, rect)
             shape = face_utils.shape_to_np(shape)
 
+            # EYES 
             leftEye = shape[lStart:lEnd]
             rightEye = shape[rStart:rEnd]
             leftEAR = eye_aspect_ratio(leftEye)
@@ -121,14 +144,38 @@ def generate():
                 COUNTER = 0
                 ALARM_ON = False
 
+            # YAWN
+            lip = shape[48:60]
+            cv2.drawContours(frame, [lip], -1, (0, 255, 0), 1)
+
+            yawn = lip_distance(shape)
+            if (yawn > YAWN_THRESH):
+
+                COUNTER2 += 1
+
+                if COUNTER2  >= YAWN_CONSEC_FRAMES and not temp:
+                    YAWN_COUNT += 1
+                    temp = True
+                    #print(YAWN_COUNT)
+                    with open("./files/output2.txt", "a") as file:
+                        file.write(str(YAWN_COUNT))  
+                        file.write('\n')
+                    #cv2.putText(frame, "Yawn Alert", (10, 30),
+                    #            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+            
+            else:
+               COUNTER2 = 0
+               temp = False
+
             cv2.putText(frame, "EAR: {:.4f}".format(ear), (300, 30),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-            
-            # print(ear)
-            with open("./files/output.txt", "a") as file:
+
+            #print(ear)
+            with open("./files/output1.txt", "a") as file:
                 file.write(str(round(ear, 3)*1000))
                 file.write('\n')
-    
+
+            
         # cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
     
@@ -143,8 +190,6 @@ def generate():
         (flag, encodedImage) = cv2.imencode(".jpg", outputFrame)
 
         yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
-       
-
 
 
 @app.route('/video_feed')
@@ -155,11 +200,16 @@ def video_feed():
 @app.route('/report')
 def report():
     arr = []
-    with open("./files/output.txt", "r") as f:
+    with open("./files/output1.txt", "r") as f:
         name = [line.strip() for line in f if line.strip()]  
     for num in name:
         arr.append(int(float(num)))
-        
+
+    with open("./files/output2.txt", "r") as f:
+        counts = [line.strip() for line in f if line.strip()]  
+        count = counts[-1]
+
+
     avg = np.mean(arr)
     avg = round(avg, 2)
     
@@ -167,7 +217,7 @@ def report():
     time = datetime.now().strftime("%I:%M %p")
     current_date = date.today().strftime("%B %d, %Y")
          
-    return render_template('report.html', title='Results', avg=avg, check=check, time=time, date=current_date)
+    return render_template('report.html', title='Results', avg=avg,count=count, check=check, time=time, date=current_date)
 
 
 if __name__ == '__main__':

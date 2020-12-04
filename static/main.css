@@ -7,32 +7,42 @@ body {
 }
 
 .navbar {
+  background-color: white;
   transition: all 0.7s;
-  
+  opacity: 0.9;
+  font-size: 1.2em !important;
 }
 
 .navbar .nav-link {
-  color: #fff;
+  color:black;
   outline: none;
   box-shadow: none;
 }
 
 .navbar .nav-link:hover,
 .navbar .nav-link:focus {
-  color: orange;
+  color: #00b7ff;
   text-decoration: none;
 }
 
-.navbar .navbar-brand {
-  color: #fff;
-}
+
 
 .navbar-toggler:focus{
 outline: none;
 box-shadow: none;
 }
 
+.navbar .navbar-brand {
+  color:black;
+}
+
+@media (max-width: 575px) {
+  .navbar .nav-link{
+    text-align: center;
+  }
+}
 /* Change navbar styling on scroll */
+/*
 .navbar.active {
   background:white;
  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1);
@@ -48,13 +58,14 @@ box-shadow: none;
 
 .navbar.active .nav-link:hover,
 .navbar.active .nav-link:focus {
-  color:darkorange;
+  color:#00b7ff;
   text-decoration: none;
 }
 
 .navbar.active .navbar-brand {
   color:black;
 }
+*/
 
 .landing {
   padding-top: 5rem;
@@ -172,7 +183,59 @@ box-shadow: none;
   .buttons button:disabled:hover{
     background-color:beige;
   }
-
+  .fancy-spinner {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+            align-items: center;
+    width: 5rem;
+    height: 5rem;
+  }
+  .fancy-spinner div {
+    position: absolute;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+  }
+  .fancy-spinner div.ring {
+    border-width: 0.5rem;
+    border-style: solid;
+    border-color: transparent;
+    -webkit-animation: 2s fancy infinite alternate;
+            animation: 2s fancy infinite alternate;
+  }
+  .fancy-spinner div.ring:nth-child(1) {
+    border-left-color: #000;
+    border-right-color: #000;
+  }
+  .fancy-spinner div.ring:nth-child(2) {
+    border-top-color: #000;
+    border-bottom-color: #000;
+    -webkit-animation-delay: 1s;
+            animation-delay: 1s;
+  }
+  .fancy-spinner div.dot {
+    width: 1rem;
+    height: 1rem;
+    background: #000;
+  }
+  
+  @-webkit-keyframes fancy {
+    to {
+      -webkit-transform: rotate(360deg) scale(0.5);
+              transform: rotate(360deg) scale(0.5);
+    }
+  }
+  
+  @keyframes fancy {
+    to {
+      -webkit-transform: rotate(360deg) scale(0.5);
+              transform: rotate(360deg) scale(0.5);
+    }
+  }
+  
 
   .waves {
     position:relative;
@@ -376,6 +439,12 @@ box-shadow: none;
   align-items: center;
   position: absolute;
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.precentered {
+  position: absolute;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
