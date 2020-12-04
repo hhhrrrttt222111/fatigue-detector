@@ -42,6 +42,9 @@ def video():
 
  
 
+detector = dlib.get_frontal_face_detector()
+predictor = dlib.shape_predictor("./fatigue/shape_predictor_68_face_landmarks.dat")
+
 def sound_alarm():
     playsound.playsound('./fatigue/sounds/alarm2.mp3')
 
@@ -51,6 +54,7 @@ def eye_aspect_ratio(eye):
     C = dist.euclidean(eye[0], eye[3])
 
     ear = (A + B) / (2.0 * C)
+    
     return ear
 
 def lip_distance(shape):
@@ -64,14 +68,72 @@ def lip_distance(shape):
     low_mean = np.mean(low_lip, axis=0)
 
     distance = abs(top_mean[1] - low_mean[1])
+    
     return distance
+
+
+def get_landmarks(im):
+    rects = detector(im, 1)
+
+    if len(rects) > 1:
+        return "error"
+    if len(rects) == 0:
+        return "error"
+    
+    return np.matrix([[p.x, p.y] for p in predictor(im, rects[0]).parts()])
+
+
+def annotate_landmarks(im, landmarks):
+    im = im.copy()
+    for idx, point in enumerate(landmarks):
+        pos = (point[0, 0], point[0, 1])
+        cv2.putText(im, str(idx), pos,
+                    fontFace=cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,
+                    fontScale=0.4,
+                    color=(0, 0, 255))
+        cv2.circle(im, pos, 3, color=(0, 255, 255))
+        
+    return im
+
+def top_lip(landmarks):
+    top_lip_pts = []
+    for i in range(50,53):
+        top_lip_pts.append(landmarks[i])
+    for i in range(61,64):
+        top_lip_pts.append(landmarks[i])
+    top_lip_all_pts = np.squeeze(np.asarray(top_lip_pts))
+    top_lip_mean = np.mean(top_lip_pts, axis=0)
+    
+    return int(top_lip_mean[:,1])
+
+def bottom_lip(landmarks):
+    bottom_lip_pts = []
+    for i in range(65,68):
+        bottom_lip_pts.append(landmarks[i])
+    for i in range(56,59):
+        bottom_lip_pts.append(landmarks[i])
+    bottom_lip_all_pts = np.squeeze(np.asarray(bottom_lip_pts))
+    bottom_lip_mean = np.mean(bottom_lip_pts, axis=0)
+    
+    return int(bottom_lip_mean[:,1])
+
+def mouth_open(image):
+    landmarks = get_landmarks(image)
+    
+    if landmarks == "error":
+        return image, 0
+    
+    image_with_landmarks = annotate_landmarks(image, landmarks)
+    top_lip_center = top_lip(landmarks)
+    bottom_lip_center = bottom_lip(landmarks)
+    lip_distance = abs(top_lip_center - bottom_lip_center)
+    
+    return image_with_landmarks, lip_distance
 
 
 def generate():
 
     print("Loading facial landmark predictor...")
-    detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor("./fatigue/shape_predictor_68_face_landmarks.dat")
 
 
     (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
@@ -87,13 +149,9 @@ def generate():
     YAWN_THRESH = 20
     
     COUNTER = 0
-    YAWN_COUNT = 0
     ALARM_ON = False
-    Y_COUNTER = 0
-    YAWN_CONSEC_FRAMES = 20
-    COUNTER2 = 0
-    temp = False
-    prev = 0
+    yawns = 0
+    yawn_status = False 
     
     with open("./files/output1.txt", "w") as file:
         file.write('\n')
@@ -143,34 +201,33 @@ def generate():
             else:
                 COUNTER = 0
                 ALARM_ON = False
-
-            # YAWN
-            lip = shape[48:60]
-            cv2.drawContours(frame, [lip], -1, (0, 255, 0), 1)
-
-            yawn = lip_distance(shape)
-            if (yawn > YAWN_THRESH):
-
-                COUNTER2 += 1
-
-                if COUNTER2  >= YAWN_CONSEC_FRAMES and not temp:
-                    YAWN_COUNT += 1
-                    temp = True
-                    #print(YAWN_COUNT)
-                    with open("./files/output2.txt", "a") as file:
-                        file.write(str(YAWN_COUNT))  
-                        file.write('\n')
-                    #cv2.putText(frame, "Yawn Alert", (10, 30),
-                    #            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-            
-            else:
-               COUNTER2 = 0
-               temp = False
-
+                
             cv2.putText(frame, "EAR: {:.4f}".format(ear), (300, 30),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
-            #print(ear)
+            # YAWN
+            image_landmarks, lip_distance = mouth_open(frame)
+            
+            prev_yawn_status = yawn_status  
+            
+            if lip_distance > 25:
+                yawn_status = True                 
+
+                output_text = "Yawns: " + str(yawns + 1)
+
+                cv2.putText(frame, output_text, (30, 300), cv2.FONT_HERSHEY_COMPLEX, 0.6, (0, 255, 127), 2)
+                
+            else:
+                yawn_status = False 
+                
+            if prev_yawn_status == True and yawn_status == False:
+                yawns += 1
+                
+            with open("./files/output2.txt", "a") as file:
+                file.write(str(yawns))  
+                file.write('\n')
+
+            # print(ear)
             with open("./files/output1.txt", "a") as file:
                 file.write(str(round(ear, 3)*1000))
                 file.write('\n')
