@@ -15,6 +15,11 @@ import time
 import dlib
 import cv2
 
+import io
+
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+
 from utils.quotes import quotes
 
 
@@ -252,6 +257,26 @@ def generate():
 @app.route('/video_feed')
 def video_feed():
     return Response(generate(), mimetype = "multipart/x-mixed-replace; boundary=frame")
+
+
+   
+
+@app.route('/graph')
+def graph():
+    arr = []
+    fig = Figure()
+    axis = fig.add_subplot(1, 1, 1)
+    with open("./files/output1.txt", "r") as f:
+        name = [line.strip() for line in f if line.strip()] 
+    for num in name:
+        arr.append(int(float(num)))
+    x = arr
+    y = np.array(arr) + 5
+    axis.plot(x, y)
+    
+    output = io.BytesIO()
+    FigureCanvasAgg(fig).print_png(output)
+    return Response(output.getvalue(), mimetype = "image/png")
      
 
 @app.route('/report')
@@ -274,7 +299,7 @@ def report():
     time = datetime.now().strftime("%I:%M %p")
     current_date = date.today().strftime("%B %d, %Y")
          
-    return render_template('report.html', title='Results', avg=avg,count=count, check=check, time=time, date=current_date)
+    return render_template('report.html', title='Results', avg=avg, count=count, check=check, time=time, date=current_date)
 
 
 if __name__ == '__main__':
