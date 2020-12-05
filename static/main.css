@@ -81,7 +81,23 @@ box-shadow: none;
 
 .landing_left {
     flex: 0.7;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
+
+.intro {
+  margin: 1.5rem;
+}
+
+.intro > h1 {
+  color: #00e6e6;
+}
+.intro > h3 {
+  color: #00e6e6;
+}
+
 .landing_right {
     padding-top: 3rem;
     flex: 0.3;
