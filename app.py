@@ -49,8 +49,10 @@ def video():
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("./fatigue/shape_predictor_68_face_landmarks.dat")
 
+
 def sound_alarm():
     playsound.playsound('./fatigue/sounds/alarm2.mp3')
+
 
 def eye_aspect_ratio(eye):
     A = dist.euclidean(eye[1], eye[5])
@@ -60,6 +62,7 @@ def eye_aspect_ratio(eye):
     ear = (A + B) / (2.0 * C)
     
     return ear
+
 
 def lip_distance(shape):
     top_lip = shape[50:53]
@@ -99,6 +102,7 @@ def annotate_landmarks(im, landmarks):
         
     return im
 
+
 def top_lip(landmarks):
     top_lip_pts = []
     for i in range(50,53):
@@ -110,6 +114,7 @@ def top_lip(landmarks):
     
     return int(top_lip_mean[:,1])
 
+
 def bottom_lip(landmarks):
     bottom_lip_pts = []
     for i in range(65,68):
@@ -120,6 +125,7 @@ def bottom_lip(landmarks):
     bottom_lip_mean = np.mean(bottom_lip_pts, axis=0)
     
     return int(bottom_lip_mean[:,1])
+
 
 def mouth_open(image):
     landmarks = get_landmarks(image)
@@ -149,17 +155,21 @@ def generate():
     time.sleep(2.0)
 
     EYE_AR_THRESH = 0.3
-    EYE_AR_CONSEC_FRAMES = 30
-    YAWN_THRESH = 20
+    EYE_AR_CONSEC_FRAMES = 25
+    BLINK_AR_CONSEC_FRAMES = 3
+    
+    TOTAL = 0
+    BLINK_COUNTER = 0
+    
     
     COUNTER = 0
     ALARM_ON = False
-    yawns = 0
-    yawn_status = False 
+    YAWN = 0
+    YAWN_STATUS = False 
     
-    with open("./files/output1.txt", "w") as file:
+    with open("./files/EAR.txt", "w") as file:
         file.write('\n')
-    with open("./files/output2.txt", "w") as file:
+    with open("./files/YAWN.txt", "w") as file:
         file.write('0\n')    
 
     while True:
@@ -172,6 +182,25 @@ def generate():
         for rect in rects:
             shape = predictor(gray, rect)
             shape = face_utils.shape_to_np(shape)
+            
+            
+            # YAWN
+            image_landmarks, lip_distance = mouth_open(frame)
+            
+            prev_yawn_status = YAWN_STATUS  
+            
+            if lip_distance > 25:
+                YAWN_STATUS = True                 
+
+                output_text = "YAWNS: " + str(YAWN + 1)
+
+                cv2.putText(frame, output_text, (30, 400), cv2.FONT_HERSHEY_COMPLEX, 0.6, (255, 255, 0), 2)
+                
+            else:
+                YAWN_STATUS = False 
+                
+            if prev_yawn_status == True and YAWN_STATUS == False:
+                YAWN += 1
 
             # EYES 
             leftEye = shape[lStart:lEnd]
@@ -208,31 +237,30 @@ def generate():
                 
             cv2.putText(frame, "EAR: {:.4f}".format(ear), (300, 30),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-
-            # YAWN
-            image_landmarks, lip_distance = mouth_open(frame)
             
-            prev_yawn_status = yawn_status  
             
-            if lip_distance > 25:
-                yawn_status = True                 
-
-                output_text = "Yawns: " + str(yawns + 1)
-
-                cv2.putText(frame, output_text, (30, 300), cv2.FONT_HERSHEY_COMPLEX, 0.6, (0, 255, 127), 2)
-                
+            # Blink
+            if ear < EYE_AR_THRESH:
+                BLINK_COUNTER += 1
             else:
-                yawn_status = False 
+                if BLINK_COUNTER >= BLINK_AR_CONSEC_FRAMES:
+                    TOTAL += 1
+        
+                BLINK_COUNTER = 0
                 
-            if prev_yawn_status == True and yawn_status == False:
-                yawns += 1
+            print(TOTAL)
+
+
+            with open("./files/BLINK.txt", "a") as file:
+                file.write(str(TOTAL))  
+                file.write('\n')
                 
-            with open("./files/output2.txt", "a") as file:
-                file.write(str(yawns))  
+            with open("./files/YAWN.txt", "a") as file:
+                file.write(str(YAWN))  
                 file.write('\n')
 
             # print(ear)
-            with open("./files/output1.txt", "a") as file:
+            with open("./files/EAR.txt", "a") as file:
                 file.write(str(round(ear, 3)*1000))
                 file.write('\n')
 
@@ -266,7 +294,7 @@ def graph():
     plt.style.use('dark_background')
     fig = Figure()
     axis = fig.add_subplot(1, 1, 1)
-    with open("./files/output1.txt", "r") as f:
+    with open("./files/EAR.txt", "r") as f:
         name = [line.strip() for line in f if line.strip()] 
     for num in name:
         arr.append(int(float(num)))
@@ -277,7 +305,7 @@ def graph():
     x = range(len(arr))
     axis.set_xlabel('Session Duration', fontsize=13, labelpad=5)
     axis.set_ylabel('Eye Aspect Ratio', fontsize=13, labelpad=5)
-    axis.set_ylim([0.190, 0.350])
+    axis.set_ylim([0.170, 0.370])
     axis.set_title('EAR Graph for the session', fontsize=18)
     axis.tick_params(axis='x', colors='#009999')
     axis.tick_params(axis='y', colors='#009999')
@@ -294,14 +322,24 @@ def graph():
 @app.route('/report')
 def report():
     arr = []
-    with open("./files/output1.txt", "r") as f:
+    with open("./files/EAR.txt", "r") as f:
         name = [line.strip() for line in f if line.strip()]  
     for num in name:
         arr.append(int(float(num)))
 
-    with open("./files/output2.txt", "r") as f:
-        counts = [line.strip() for line in f if line.strip()]  
-        count = counts[-1]
+    with open("./files/YAWN.txt", "r") as f:
+        yawns = [line.strip() for line in f if line.strip()]  
+        if yawns:
+            yawn = yawns[-1]
+        else:
+            yawn = 0
+            
+    with open("./files/BLINK.txt", "r") as f:
+        blinks = [line.strip() for line in f if line.strip()]  
+        if blinks:
+            blink = blinks[-1]
+        else:
+            blink = 0
 
 
     avg = np.mean(arr)
@@ -311,7 +349,7 @@ def report():
     time = datetime.now().strftime("%I:%M %p")
     current_date = date.today().strftime("%B %d, %Y")
          
-    return render_template('report.html', title='Results', avg=avg, count=count, check=check, time=time, date=current_date)
+    return render_template('report.html', title='Results', avg=avg, yawn=yawn, blink=blink, check=check, time=time, date=current_date)
 
 
 if __name__ == '__main__':
