@@ -4,13 +4,13 @@
 
     <div class="video">
         <img src={{url_for('video_feed')}} onload="imageloaded();"/>
-        <div id="feed" class="centered">
-            <img src="{{ url_for('static', filename='media/loader.svg') }}" />
-            <h2>Loading Live Feed</h2>
+        <h1 id='feed' class="centered">Loading Live Feed</h1>
+        <div id='fancy-spinner' class="fancy-spinner precentered" >
+            <div id='ring' class="ring"></div>
+            <div id='ring' class="ring"></div>
+            <div id='dot'  class="dot"></div>
         </div>
-
     </div>
-
 
 
 {% endblock content %}
