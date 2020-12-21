@@ -534,3 +534,19 @@ box-shadow: none;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.myabout {
+ 
+  margin-top: 15% !important;
+  color: white;
+  
+  padding-right: 10%;
+  padding-left: 10%;
+  font-size: 1.5rem;
+  
+  padding-top: 5%;
+}
+@media (max-width:430px){
+  .myabout {
+    padding-top: 15%;
+  }
+}
