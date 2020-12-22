@@ -59,6 +59,42 @@ This project files requires **Python 3** and the following Python libraries inst
 python app.py
 ```  
 
+<br><br>
+
+
+## Snapshots
+
+ * ### Landing Page
+<p align="center">
+ <img src="./screenshots/main.PNG" alt=""/>
+</p>
+<br> 
+
+ * ### Report Page
+<p align="center">
+ <img src="./screenshots/reportpage.PNG" alt=""/>
+</p>
+<br> 
+
+ * ### Generated Report
+<p align="center">
+ <img src="./screenshots/report.PNG" alt=""/>
+</p>
+<br> 
+
+ * ### Generated EAR Graph
+<p align="center">
+ <img src="./screenshots/graph.PNG" alt=""/>
+</p>
+<br> 
+
+ * ### Tip of the day
+<p align="center">
+ <img src="./screenshots/tip.PNG" alt=""/>
+</p>
+
+<br ><br ><br >
+
 <br><br><br><br>
 
 ## Contributors ✨
