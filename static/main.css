@@ -570,10 +570,6 @@ box-shadow: none;
   display: flex;
 }
 
-.slide-fwd-center {
-	-webkit-animation: slide-fwd-center 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s both;
-	        animation: slide-fwd-center 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s both;
-}
 
 @media screen and (max-width: 600px) {
   .about{
